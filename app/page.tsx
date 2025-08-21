@@ -210,6 +210,12 @@ const categories: Category[] = [
 // Define optional add‑ons that can be selected for any package.
 const addons = [
   {
+    id: "none",
+    name: "No Add‑ons",
+    price: 0,
+    description: "No additional services.",
+  },
+  {
     id: "extra_photographer",
     name: "Extra Photographer",
     price: 500,
@@ -298,10 +304,17 @@ export default function BookingPage() {
 
   const handleAddonToggle = (id: string) => {
     setSelectedAddons((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((a) => a !== id);
+      if (id === 'none') {
+        if (prev.includes('none')) {
+          return [];
+        }
+        return ['none'];
       }
-      return [...prev, id];
+      const withoutNone = prev.filter((a) => a !== 'none');
+      if (withoutNone.includes(id)) {
+        return withoutNone.filter((a) => a !== id);
+      }
+      return [...withoutNone, id];
     });
   };
 
@@ -549,7 +562,7 @@ export default function BookingPage() {
               <p>{selectedPackage.label} {selectedPackage.tier ? `– ${selectedPackage.tier}` : ''}</p>
               <p className="font-semibold">${selectedPackage.price.toFixed(2)}</p>
             </div>
-            {selectedAddons.length > 0 && (
+            {selectedAddons.some((id) => id !== 'none') && (
               <div className="p-4 border rounded">
                 <h3 className="font-medium mb-1">Add‑Ons</h3>
                 <ul className="list-disc list-inside space-y-1">
@@ -614,6 +627,11 @@ export default function BookingPage() {
           </button>
         </div>
       )}
+      <footer className="mt-8 text-center text-xs text-gray-500">
+        <a href={'https:' + '/' + '/' + 'brownbranding.com'} target="_blank" className="text-blue-600 underline">
+          brownbranding.com
+        </a>
+      </footer>
     </div>
   );
 }
