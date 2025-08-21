@@ -306,6 +306,7 @@ export default function BookingPage() {
   };
 
   const handleSubmit = async () => {
+    // Build the booking payload from the current selections and form details.
     const payload = {
       category: selectedCategory?.name,
       package: selectedPackage,
@@ -314,11 +315,30 @@ export default function BookingPage() {
       total: totalPrice,
     };
     try {
+      // First, record the booking in our backend. This will forward the data
+      // to GoHighLevel so you have a record of the booking even if the
+      // customer abandons payment.
       await fetch('/api/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+
+      // Then, create a Stripe Checkout session for payment. We send the total
+      // and a description of the selected package. The API returns a URL
+      // that we redirect the user to.
+      const res = await fetch('/api/stripe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ total: totalPrice, description: selectedPackage?.label }),
+      });
+      const data = await res.json();
+      if (data && data.url) {
+        // Redirect to Stripe hosted checkout page.
+        window.location.href = data.url;
+        return;
+      }
+      // If no URL is returned, fall back to showing the thank‑you page.
       setSubmitted(true);
       setStep(5);
     } catch (err) {
