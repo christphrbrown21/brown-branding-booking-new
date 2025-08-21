@@ -7,6 +7,8 @@ type PackageOption = {
   label: string;
   price: number;
   tier?: string;
+  /** Description of what is included in the package */
+  description?: string;
 };
 
 type Category = {
@@ -15,72 +17,264 @@ type Category = {
   packages: PackageOption[];
 };
 
+// Define the available categories and associated package options.
 const categories: Category[] = [
   {
     id: "full_reels",
     name: "Full‑Service Reels (Filming + Editing)",
     packages: [
-      { id: "full_on_1", tier: "On‑Demand", label: "1 Reel", price: 250 },
-      { id: "full_on_2", tier: "On‑Demand", label: "2 Reels", price: 500 },
-      { id: "full_on_4", tier: "On‑Demand", label: "4 Reels", price: 600 },
-      { id: "full_month_4", tier: "Monthly", label: "4 Reels / month", price: 600 },
-      { id: "full_month_8", tier: "Monthly", label: "8 Reels / month", price: 1000 },
-      { id: "full_month_12", tier: "Monthly", label: "12 Reels / month", price: 1500 },
+      {
+        id: "full_on_1",
+        tier: "On‑Demand",
+        label: "1 Reel",
+        price: 250,
+        description:
+          "Filming and editing for one high‑quality reel delivered as a one‑off project.",
+      },
+      {
+        id: "full_on_2",
+        tier: "On‑Demand",
+        label: "2 Reels",
+        price: 500,
+        description:
+          "Filming and editing for two reels delivered as a one‑off project.",
+      },
+      {
+        id: "full_on_4",
+        tier: "On‑Demand",
+        label: "4 Reels",
+        price: 600,
+        description:
+          "Filming and editing for four reels with discounted per‑reel pricing.",
+      },
+      {
+        id: "full_month_4",
+        tier: "Monthly",
+        label: "4 Reels / month",
+        price: 600,
+        description:
+          "Monthly subscription: filming and editing for four reels per month (Starter plan).",
+      },
+      {
+        id: "full_month_8",
+        tier: "Monthly",
+        label: "8 Reels / month",
+        price: 1000,
+        description:
+          "Monthly subscription: filming and editing for eight reels per month (Growth plan) with lower per‑reel rate.",
+      },
+      {
+        id: "full_month_12",
+        tier: "Monthly",
+        label: "12 Reels / month",
+        price: 1500,
+        description:
+          "Monthly subscription: filming and editing for twelve reels per month (Dominance plan), our best value for high‑volume content.",
+      },
     ],
   },
   {
     id: "edit_only",
     name: "Editing Only (No Filming)",
     packages: [
-      { id: "edit_daily_1", tier: "Daily", label: "1 Reel", price: 150 },
-      { id: "edit_daily_2", tier: "Daily", label: "2 Reels", price: 250 },
-      { id: "edit_daily_4", tier: "Daily", label: "4 Reels", price: 400 },
-      { id: "edit_month_4", tier: "Monthly", label: "Starter – 4 Reels / month", price: 500 },
-      { id: "edit_month_8", tier: "Monthly", label: "Growth – 8 Reels / month", price: 800 },
-      { id: "edit_month_12", tier: "Monthly", label: "Dominance – 12 Reels / month", price: 1000 },
+      {
+        id: "edit_daily_1",
+        tier: "Daily",
+        label: "1 Reel",
+        price: 150,
+        description: "Same‑day editing of your provided footage for one reel.",
+      },
+      {
+        id: "edit_daily_2",
+        tier: "Daily",
+        label: "2 Reels",
+        price: 250,
+        description: "Editing of two reels with 48‑hour turnaround.",
+      },
+      {
+        id: "edit_daily_4",
+        tier: "Daily",
+        label: "4 Reels",
+        price: 400,
+        description: "Editing of four reels delivered within one week.",
+      },
+      {
+        id: "edit_month_4",
+        tier: "Monthly",
+        label: "Starter – 4 Reels / month",
+        price: 500,
+        description:
+          "Monthly editing subscription: four reels per month (Starter plan).",
+      },
+      {
+        id: "edit_month_8",
+        tier: "Monthly",
+        label: "Growth – 8 Reels / month",
+        price: 800,
+        description:
+          "Monthly editing subscription: eight reels per month (Growth plan).",
+      },
+      {
+        id: "edit_month_12",
+        tier: "Monthly",
+        label: "Dominance – 12 Reels / month",
+        price: 1000,
+        description:
+          "Monthly editing subscription: twelve reels per month (Dominance plan), our best value.",
+      },
     ],
   },
   {
     id: "wedding",
     name: "Wedding Packages",
     packages: [
-      { id: "wedding_essentials", label: "Essentials Package", price: 1200 },
-      { id: "wedding_signature", label: "Signature Package", price: 2200 },
-      { id: "wedding_luxury", label: "Luxury Package", price: 3500 },
+      {
+        id: "wedding_essentials",
+        label: "Essentials Package",
+        price: 1200,
+        description:
+          "4 hours of coverage by one photographer; 150+ edited photos; online gallery.",
+      },
+      {
+        id: "wedding_signature",
+        label: "Signature Package",
+        price: 2200,
+        description:
+          "6 hours of coverage; two photographers capturing ceremony & candid moments; 300+ edited photos; 30–60 sec highlight reel; online gallery + USB keepsake.",
+      },
+      {
+        id: "wedding_luxury",
+        label: "Luxury Package",
+        price: 3500,
+        description:
+          "Full‑day coverage (up to 10 hours) with two photographers and a videographer; 500+ edited photos; 3–5 min cinematic highlight film; engagement photoshoot; online gallery; custom photo book.",
+      },
     ],
   },
   {
     id: "business",
     name: "Business / Branding Photography",
     packages: [
-      { id: "business_headshot", label: "Headshot Package", price: 250 },
-      { id: "business_professional", label: "Professional Package", price: 500 },
-      { id: "business_executive", label: "Executive Branding Package", price: 1200 },
+      {
+        id: "business_headshot",
+        label: "Headshot Package",
+        price: 250,
+        description:
+          "30‑minute session; three fully retouched photos; neutral backdrop or on‑site setup.",
+      },
+      {
+        id: "business_professional",
+        label: "Professional Package",
+        price: 500,
+        description:
+          "One‑hour session; eight fully retouched photos; multiple looks and outfits; lifestyle shots in your workspace.",
+      },
+      {
+        id: "business_executive",
+        label: "Executive Branding Package",
+        price: 1200,
+        description:
+          "Three‑hour creative session; 20+ fully retouched photos; outfit and location changes; team/group photos; social media crop set.",
+      },
     ],
   },
   {
     id: "corporate",
     name: "Corporate Event Photography",
     packages: [
-      { id: "corporate_essentials", label: "Corporate Essentials", price: 800 },
-      { id: "corporate_premium", label: "Premium Corporate", price: 1500 },
-      { id: "corporate_allin", label: "All‑In Branding Experience", price: 2500 },
+      {
+        id: "corporate_essentials",
+        label: "Corporate Essentials",
+        price: 800,
+        description:
+          "3 hours of event coverage; 150+ edited photos; online gallery delivery.",
+      },
+      {
+        id: "corporate_premium",
+        label: "Premium Corporate",
+        price: 1500,
+        description:
+          "6 hours of coverage; two photographers covering main and candid moments; 300+ edited photos; 30–60 sec social‑ready highlight reel.",
+      },
+      {
+        id: "corporate_allin",
+        label: "All‑In Branding Experience",
+        price: 2500,
+        description:
+          "Full‑day coverage (up to 10 hours); two photographers and a videographer; 500+ photos; 3–5 min highlight video; includes team and individual headshots.",
+      },
     ],
   },
 ];
 
+// Define optional add‑ons that can be selected for any package.
 const addons = [
-  { id: "extra_photographer", name: "Extra Photographer", price: 500 },
-  { id: "videographer_half", name: "Videographer (half‑day)", price: 700 },
-  { id: "videographer_full", name: "Videographer (full‑day)", price: 1200 },
-  { id: "drone", name: "Drone Footage", price: 350 },
-  { id: "photo_book", name: "Photo Book / Album", price: 400 },
-  { id: "sneak_peek", name: "Same‑Day Sneak Peek Edits", price: 250 },
-  { id: "captions", name: "Captions + Subtitles", price: 50 },
-  { id: "motion_graphics", name: "Motion Graphics", price: 75 },
-  { id: "story_cutdowns", name: "Branded Story Cutdowns", price: 100 },
-  { id: "content_calendar", name: "Monthly Content Calendar", price: 200 },
-  { id: "strategy", name: "Strategy Session (30 mins)", price: 100 },
+  {
+    id: "extra_photographer",
+    name: "Extra Photographer",
+    price: 500,
+    description: "Add a second photographer for additional coverage.",
+  },
+  {
+    id: "videographer_half",
+    name: "Videographer (half‑day)",
+    price: 700,
+    description: "Half‑day videographer capturing highlights and key moments.",
+  },
+  {
+    id: "videographer_full",
+    name: "Videographer (full‑day)",
+    price: 1200,
+    description: "Full‑day videographer capturing complete coverage of your event.",
+  },
+  {
+    id: "drone",
+    name: "Drone Footage",
+    price: 350,
+    description: "Aerial shots and cinematic drone footage.",
+  },
+  {
+    id: "photo_book",
+    name: "Photo Book / Album",
+    price: 400,
+    description: "Professionally designed printed photo book or album.",
+  },
+  {
+    id: "sneak_peek",
+    name: "Same‑Day Sneak Peek Edits",
+    price: 250,
+    description: "Receive a selection of edited photos the same day.",
+  },
+  {
+    id: "captions",
+    name: "Captions + Subtitles",
+    price: 50,
+    description: "Professional captions and subtitles for each reel.",
+  },
+  {
+    id: "motion_graphics",
+    name: "Motion Graphics",
+    price: 75,
+    description: "Custom motion graphics to enhance your reels.",
+  },
+  {
+    id: "story_cutdowns",
+    name: "Branded Story Cutdowns",
+    price: 100,
+    description: "Shorter, social‑friendly edits for stories.",
+  },
+  {
+    id: "content_calendar",
+    name: "Monthly Content Calendar",
+    price: 200,
+    description: "Monthly planning of your content schedule.",
+  },
+  {
+    id: "strategy",
+    name: "Strategy Session (30 mins)",
+    price: 100,
+    description: "30‑minute session to develop your content strategy.",
+  },
 ];
 
 export default function BookingPage() {
@@ -96,6 +290,7 @@ export default function BookingPage() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  // Calculate the total price based on selected package and add‑ons.
   const totalPrice = (selectedPackage?.price || 0) + selectedAddons.reduce((sum, id) => {
     const add = addons.find((a) => a.id === id);
     return add ? sum + add.price : sum;
@@ -133,6 +328,7 @@ export default function BookingPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
+      {/* Header with logo */}
       <header className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
           <img
@@ -147,6 +343,7 @@ export default function BookingPage() {
         )}
       </header>
 
+      {/* Step content */}
       {step === 0 && (
         <div>
           <h2 className="text-2xl font-bold mb-4">Choose a Service Category</h2>
@@ -183,6 +380,11 @@ export default function BookingPage() {
                 <div className="font-medium">{pkg.label}</div>
                 {pkg.tier && <div className="text-sm text-gray-500">{pkg.tier}</div>}
                 <div className="mt-1 font-semibold">${pkg.price.toFixed(2)}</div>
+                {pkg.description && (
+                  <div className="mt-1 text-xs text-gray-600 italic">
+                    {pkg.description}
+                  </div>
+                )}
               </button>
             ))}
           </div>
@@ -214,12 +416,23 @@ export default function BookingPage() {
             {addons.map((addon) => (
               <label
                 key={addon.id}
-                className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer ${
-                  selectedAddons.includes(addon.id) ? 'bg-blue-50 border-blue-500' : 'hover:bg-blue-50'
+                className={`p-4 border rounded-lg cursor-pointer ${
+                  selectedAddons.includes(addon.id)
+                    ? 'bg-blue-50 border-blue-500'
+                    : 'hover:bg-blue-50'
                 }`}
               >
-                <span className="font-medium">{addon.name}</span>
-                <span className="font-semibold">${addon.price.toFixed(2)}</span>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <span className="font-medium">{addon.name}</span>
+                    {addon.description && (
+                      <div className="text-xs text-gray-600 italic">
+                        {addon.description}
+                      </div>
+                    )}
+                  </div>
+                  <span className="font-semibold">${addon.price.toFixed(2)}</span>
+                </div>
                 <input
                   type="checkbox"
                   className="hidden"
@@ -368,6 +581,7 @@ export default function BookingPage() {
           <button
             className="px-4 py-2 rounded bg-blue-600 text-white"
             onClick={() => {
+              // reset for new booking
               setStep(0);
               setSelectedCategory(null);
               setSelectedPackage(null);
